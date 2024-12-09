@@ -14,7 +14,7 @@ hands = mpHands.Hands(
 
 Draw = mp.solutions.drawing_utils
 
-video = cv2.VideoCapture(0)
+video = cv2.VideoCapture(2)
 
 while True:
     success, frame = video.read()
@@ -26,15 +26,22 @@ while True:
 
     # append landmarks to list and draw them on hand
     if Process.multi_hand_landmarks:
-        for handlm in Process.multi_hand_landmarks:
-            for _id, landmarks in enumerate(handlm.landmark):
+        for hand_lm in Process.multi_hand_landmarks:
+            for _id, landmarks in enumerate(hand_lm.landmark):
                 height, width, color_channel = frame.shape
                 x, y = int(landmarks.x * width), int(landmarks.y * height)
                 landmarkList.append([_id, x, y])
 
-            Draw.draw_landmarks(frame, handlm, mpHands.HAND_CONNECTIONS)
+            Draw.draw_landmarks(frame, hand_lm, mpHands.HAND_CONNECTIONS)
 
+    if landmarkList:
+        x_thumb, y_thumb = landmarkList[4][1], landmarkList[4][2]           # coordinates of thumb tip
+        x_index, y_index = landmarkList[8][1], landmarkList[8][2]           # coordinates of index tip
+        x_middle, y_middle = landmarkList[12][1], landmarkList[12][2]       # coordinates of middle tip
 
+        cv2.circle(frame, (x_thumb, y_thumb), 7, (0, 0, 255), cv2.FILLED)
+        cv2.circle(frame, (x_index, y_index), 7, (0, 0, 255), cv2.FILLED)
+        cv2.circle(frame, (x_middle, y_middle), 7, (0, 0, 255), cv2.FILLED)
 
     # show webcam
     cv2.imshow("frame", frame)

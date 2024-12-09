@@ -19,10 +19,25 @@ video = cv2.VideoCapture(0)
 while True:
     success, frame = video.read()
     frame = cv2.flip(frame, 1)
-    frameRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    frameRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)       # change to RGB
 
+    landmarkList = []                                       # list of landmarks
+    Process = hands.process(frameRGB)                       # process image to find hands
+
+    # append landmarks to list and draw them on hand
+    if Process.multi_hand_landmarks:
+        for handlm in Process.multi_hand_landmarks:
+            for _id, landmarks in enumerate(handlm.landmark):
+                height, width, color_channel = frame.shape
+                x, y = int(landmarks.x * width), int(landmarks.y * height)
+                landmarkList.append([_id, x, y])
+
+            Draw.draw_landmarks(frame, handlm, mpHands.HAND_CONNECTIONS)
+
+
+
+    # show webcam
     cv2.imshow("frame", frame)
-
     # stop webcam if 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break

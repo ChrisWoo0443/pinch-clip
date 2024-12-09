@@ -48,7 +48,7 @@ while True:
         cv2.putText(frame, "copy", (x_index-20, y_index-30), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)
 
         cv2.circle(frame, (x_middle, y_middle), 7, (0, 0, 255), cv2.FILLED)
-        cv2.putText(frame, "pase", (x_middle-20, y_middle-30), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)
+        cv2.putText(frame, "paste", (x_middle-20, y_middle-30), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)
 
         cv2.circle(frame, (x_ring, y_ring), 7, (0, 0, 255), cv2.FILLED)
         cv2.putText(frame, "quit", (x_ring-20, y_ring-30), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 2)

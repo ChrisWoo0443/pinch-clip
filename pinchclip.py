@@ -50,7 +50,18 @@ while True:
         thumb_middle = hypot(x_thumb-x_middle, y_thumb-y_middle)
         dist_thumb_middle = np.interp(thumb_middle, [15, 300], [0, 100])
 
+        # find value for when tip is touching
+        # print(int(dist_thumb_index))
+        # print(int(dist_thumb_middle))
+        # both less than 5
 
+        # thumb+index is copy
+        if int(dist_thumb_index) < 5:
+            pyautogui.hotkey('command', 'c')
+
+        # thumb+middle is paste
+        if int(dist_thumb_middle) < 5:
+            pyautogui.hotkey('command', 'v')
 
     # show webcam
     cv2.imshow("frame", frame)

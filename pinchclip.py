@@ -1,7 +1,7 @@
 import numpy as np
 import mediapipe as mp
 import cv2
-import pyperclip
+import pyautogui
 from math import hypot
 
 mpHands = mp.solutions.hands
@@ -13,4 +13,18 @@ hands = mpHands.Hands(
     max_num_hands=2)                # maximum number of hands default is 2
 
 Draw = mp.solutions.drawing_utils
+
+video = cv2.VideoCapture(0)
+
+while True:
+    success, frame = video.read()
+    frame = cv2.flip(frame, 1)
+    frameRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+    cv2.imshow("frame", frame)
+
+    # stop webcam if 'q' is pressed
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
 

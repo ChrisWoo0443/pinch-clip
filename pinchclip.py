@@ -43,6 +43,15 @@ while True:
         cv2.circle(frame, (x_index, y_index), 7, (0, 0, 255), cv2.FILLED)
         cv2.circle(frame, (x_middle, y_middle), 7, (0, 0, 255), cv2.FILLED)
 
+        # interpolate distance between fingers to values between 0 and 100
+        thumb_index = hypot(x_thumb-x_index, y_thumb-y_index)
+        dist_thumb_index = np.interp(thumb_index, [15, 300], [0, 100])
+
+        thumb_middle = hypot(x_thumb-x_middle, y_thumb-y_middle)
+        dist_thumb_middle = np.interp(thumb_middle, [15, 300], [0, 100])
+
+
+
     # show webcam
     cv2.imshow("frame", frame)
     # stop webcam if 'q' is pressed
